@@ -5,7 +5,7 @@
 Tên file gợi ý:
 
 ```text
-01-pytest.png
+01-pytest.png![alt text](image.png)
 02-log-validator.png 
 03-dashboard-validator.png
 04-structured-log.png
