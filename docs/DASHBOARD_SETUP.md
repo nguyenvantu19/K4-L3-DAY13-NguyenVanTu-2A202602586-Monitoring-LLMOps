@@ -33,6 +33,18 @@ python scripts/validate_dashboard.py
 
 Validator kiểm tra cấu trúc contract; nó không thể chứng minh biểu đồ trong ảnh dùng đúng dữ liệu. Evidence runtime vẫn bắt buộc.
 
+### Dashboard local có sẵn trong repo
+
+Repo có dashboard HTML nhẹ để xem dữ liệu log mà không cần cài thêm dịch vụ. Khi API đang chạy, mở `http://127.0.0.1:8000/dashboard`; endpoint đọc lại JSONL trên mỗi lần tải trang và tự refresh theo chu kỳ trong cấu hình. Để tạo một bản snapshot dùng làm evidence, chạy:
+
+```powershell
+python scripts/render_dashboard.py
+```
+
+Lệnh tạo `submission/evidence/11-dashboard-overview.html`. Mở file snapshot đó trong trình duyệt để lưu evidence; nếu log thay đổi, chạy lại lệnh. Cả endpoint và snapshot tính sáu panel từ `data/logs.jsonl`, chỉ lấy cửa sổ thời gian trong cấu hình và không hiển thị request text hay correlation ID.
+
+Các giá trị latency, traffic, lỗi/retrieval, cost, tokens và quality được tổng hợp theo các bucket thời gian từ event JSONL đã scrub. Cấu hình threshold và nhãn panel lấy từ `config/dashboard.yaml`.
+
 ## Cách kiểm tra runtime
 
 1. Lưu ảnh baseline và giá trị P95/error/cost hiện tại.

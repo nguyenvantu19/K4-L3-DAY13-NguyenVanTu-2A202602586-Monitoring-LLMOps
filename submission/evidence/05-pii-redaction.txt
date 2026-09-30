@@ -1,0 +1,2 @@
+# Request log after fake email, phone, national ID, and card were scrubbed.
+{"service": "api", "payload": {"message_preview": "[REDACTED_EMAIL] [REDACTED_PHONE_VN] [REDACTED_CCCD] [REDACTED_CREDIT_CARD]"}, "event": "request_received", "correlation_id": "req-5a6b7c8d", "model": "claude-sonnet-4-5", "feature": "qa", "user_id_hash": "80433a2b7661", "session_id": "cp1-pii-session", "env": "dev", "level": "info", "ts": "2026-09-30T04:12:47.289743Z"}

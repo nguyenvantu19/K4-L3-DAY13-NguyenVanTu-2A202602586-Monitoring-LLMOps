@@ -1,0 +1,14 @@
+--- Lab Verification Results ---
+Total log records analyzed: 90
+Records with missing required fields: 60
+Records with missing enrichment (context): 60
+Unique correlation IDs found: 10
+Potential PII leaks detected: 0
+
+--- Grading Scorecard (Estimates) ---
+- [FAILED] Missing required fields (ts, level, etc.)
++ [PASSED] Correlation ID propagation
+- [FAILED] Log enrichment (missing user_id_hash, etc.)
++ [PASSED] PII scrubbing
+
+Estimated Score: 50/100

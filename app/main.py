@@ -2,10 +2,12 @@ from __future__ import annotations
 
 import os
 from contextlib import asynccontextmanager
+from pathlib import Path
 
 from fastapi import FastAPI, HTTPException, Request
-from fastapi.responses import JSONResponse
+from fastapi.responses import HTMLResponse, JSONResponse
 from structlog.contextvars import bind_contextvars
+import yaml
 
 from .agent import LabAgent
 from .incidents import disable, enable, status
@@ -15,6 +17,8 @@ from .middleware import CorrelationIdMiddleware
 from .pii import hash_user_id, summarize_text
 from .schemas import ChatRequest, ChatResponse
 from .tracing import tracing_enabled
+
+ROOT = Path(__file__).resolve().parents[1]
 
 configure_logging()
 log = get_logger()
@@ -29,7 +33,15 @@ async def lifespan(_: FastAPI):
         env=os.getenv("APP_ENV", "dev"),
         payload={"tracing_enabled": tracing_enabled()},
     )
-    yield
+    try:
+        yield
+    finally:
+        # Send buffered observations before a clean shutdown, so short lab runs
+        # do not lose their last traces when the local API process exits.
+        if tracing_enabled():
+            from .tracing import get_langfuse_client
+
+            get_langfuse_client().flush()
 
 
 app = FastAPI(title="Day 13 Monitoring & LLMOps Lab", lifespan=lifespan)
@@ -38,7 +50,12 @@ app.add_middleware(CorrelationIdMiddleware)
 
 @app.get("/health")
 async def health() -> dict:
-    return {"ok": True, "tracing_enabled": tracing_enabled(), "incidents": status()}
+    return {
+        "ok": True,
+        "tracing_enabled": tracing_enabled(),
+        "prompt_label": os.getenv("LANGFUSE_PROMPT_LABEL", "production"),
+        "incidents": status(),
+    }
 
 
 @app.get("/metrics")
@@ -46,11 +63,32 @@ async def metrics() -> dict:
     return snapshot()
 
 
+@app.get("/dashboard", response_class=HTMLResponse)
+async def dashboard() -> HTMLResponse:
+    """Render the six-panel dashboard from the latest sanitized JSONL events."""
+    from scripts.render_dashboard import build_dashboard, read_recent_logs
+
+    config = yaml.safe_load((ROOT / "config" / "dashboard.yaml").read_text(encoding="utf-8"))
+    minutes = int(config["dashboard"]["time_range_minutes"])
+    events = read_recent_logs(ROOT / "data" / "logs.jsonl", minutes)
+    return HTMLResponse(
+        content=build_dashboard(events, config),
+        headers={"Cache-Control": "no-store"},
+    )
+
+
 @app.post("/chat", response_model=ChatResponse)
 async def chat(request: Request, body: ChatRequest) -> ChatResponse:
-    # TODO: Enrich logs with request context (user_id_hash, session_id, feature, model, env)
-    # bind_contextvars(...)
-    
+    # Gắn metadata trước log request_received để tất cả log trong request có
+    # cùng ngữ cảnh. Hash user_id thay vì ghi ID gốc để giảm dữ liệu nhận dạng.
+    bind_contextvars(
+        user_id_hash=hash_user_id(body.user_id),
+        session_id=body.session_id,
+        feature=body.feature,
+        model=agent.model,
+        env=os.getenv("APP_ENV", "dev"),
+    )
+
     log.info(
         "request_received",
         service="api",

@@ -1,0 +1,13 @@
+CP3 structured-log evidence
+Challenge ID: day13-k4-l3b-monitoring-llmops-v1
+
+Selected affected request: req-0bfe354b
+request_received.ts=2026-09-30T09:30:39.051572Z
+response_sent.ts=2026-09-30T09:30:41.709073Z
+response_sent.latency_ms=2653
+response_sent.ttft_ms=50
+response_sent.tool_name=retrieval
+response_sent.tool_success=true
+response_sent.error_type=<absent>
+
+The correlation_id `req-0bfe354b` is the join key to trace `47307406e153f05f3271348b3aaeaa1f` in 14-incident-trace.txt. No raw request message, user ID, or session ID is reproduced in this evidence.

@@ -1,0 +1,15 @@
+Langfuse prompt: day13-chat (text)
+Required variables: {{feature}}, {{docs}}, {{message}}
+
+Baseline: v1, label baseline; initially also production.
+Candidate: v2, label candidate.
+
+Same PII-free input was used for both comparison traces:
+  baseline: correlation_id=req-c0200072
+  trace_id=5c6b1e8762a634d17551d6b468b37406
+  prompt_label=baseline, prompt_version=1, prompt_source=langfuse
+  candidate: correlation_id=req-c0200075
+  trace_id=6d8a3e513ae0519278229674a43907a9
+  prompt_label=candidate, prompt_version=2, prompt_source=langfuse
+
+Both traces contain lab-agent-run, retrieval, and llm-generation observations.

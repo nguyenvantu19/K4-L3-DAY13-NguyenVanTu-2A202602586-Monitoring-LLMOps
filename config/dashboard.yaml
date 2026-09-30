@@ -42,6 +42,8 @@ dashboard:
         aggregation: error_rate_pct
         operator: lte
         value: 2
+      secondary_thresholds:
+        retrieval_success_rate_pct: 90
 
     - id: cost
       title: Cost over time

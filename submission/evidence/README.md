@@ -6,7 +6,7 @@ Tên file gợi ý:
 
 ```text
 01-pytest.png
-02-log-validator.png
+02-log-validator.png 
 03-dashboard-validator.png
 04-structured-log.png
 05-pii-redaction.png
@@ -16,7 +16,7 @@ Tên file gợi ý:
 09-prompt-versions.png
 10-prompt-rollback.png
 11-dashboard-overview.png
-12-incident-metric.png
+12-incident-metric.png![alt text](image.png)
 13-incident-log.png
 14-incident-trace.png
 ```

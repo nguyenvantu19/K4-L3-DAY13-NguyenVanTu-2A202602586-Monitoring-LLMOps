@@ -37,6 +37,18 @@ Tên menu/nút trên Langfuse có thể thay đổi nhẹ theo phiên bản, nh�
 
 ## Việc cần làm
 
+Repo có script để thao tác an toàn, lặp lại được trên project cá nhân đã cấu hình trong `.env`:
+
+```powershell
+python scripts/cp2_prompt.py setup
+python scripts/cp2_prompt.py promote
+python scripts/cp2_prompt.py rollback
+```
+
+`setup` tạo v1 với nhãn `baseline` + `production` và v2 với nhãn `candidate`. `promote` chuyển `production` sang candidate; `rollback` đưa `production` về baseline. Script chỉ in tên prompt và số version, không in API key hay nội dung request.
+
+Để chạy cùng một câu hỏi dưới hai nhãn, khởi động API bằng [`scripts/serve_cp2_prompt.py`](../scripts/serve_cp2_prompt.py), ví dụ `python scripts/serve_cp2_prompt.py --label candidate`. Endpoint `/health` cho biết nhãn nào đang hoạt động. Sau mỗi lần đổi nhãn, gửi cùng nội dung an toàn bằng [`scripts/cp2_trace_workload.py`](../scripts/cp2_trace_workload.py) với correlation ID riêng.
+
 1. Tạo version 1, gắn labels `baseline` và `production`.
 2. Tạo version 2 với một thay đổi nhỏ về format hoặc độ dài câu trả lời, gắn label `candidate`.
 3. Chạy cùng một input với `LANGFUSE_PROMPT_LABEL=baseline` và `candidate`.

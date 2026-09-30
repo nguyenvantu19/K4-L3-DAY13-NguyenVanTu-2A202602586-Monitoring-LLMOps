@@ -1,0 +1,7 @@
+Verified Langfuse traces: 5
+Observation data: Langfuse v2 API
+req-0bfe354b trace_id=47307406e153f05f3271348b3aaeaa1f spans=lab-agent-run,llm-generation,retrieval retrieval_duration_ms=2505 model=claude-sonnet-4-5, input_tokens=61, output_tokens=92, cost_usd=0.001563 prompt_name=day13-chat, prompt_label=production, prompt_version=2, prompt_source=langfuse
+req-6a51cee2 trace_id=c96152dda93fb1f60767178b4b078dd8 spans=lab-agent-run,llm-generation,retrieval retrieval_duration_ms=2501 model=claude-sonnet-4-5, input_tokens=62, output_tokens=81, cost_usd=0.001401 prompt_name=day13-chat, prompt_label=production, prompt_version=2, prompt_source=langfuse
+req-82be2398 trace_id=2883b5a45bfe5adc3b278d87b77e1d0c spans=lab-agent-run,llm-generation,retrieval retrieval_duration_ms=2502 model=claude-sonnet-4-5, input_tokens=60, output_tokens=120, cost_usd=0.00198 prompt_name=day13-chat, prompt_label=production, prompt_version=2, prompt_source=langfuse
+req-8440a738 trace_id=a387ab6b3645f544f61bfba2f8f30726 spans=lab-agent-run,llm-generation,retrieval retrieval_duration_ms=2501 model=claude-sonnet-4-5, input_tokens=61, output_tokens=154, cost_usd=0.002493 prompt_name=day13-chat, prompt_label=production, prompt_version=2, prompt_source=langfuse
+req-ebba4a42 trace_id=50e1ca954a216ee12102ef3057bfb6fb spans=lab-agent-run,llm-generation,retrieval retrieval_duration_ms=2503 model=claude-sonnet-4-5, input_tokens=61, output_tokens=152, cost_usd=0.002463 prompt_name=day13-chat, prompt_label=production, prompt_version=2, prompt_source=langfuse

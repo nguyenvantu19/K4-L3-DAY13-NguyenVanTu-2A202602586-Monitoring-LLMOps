@@ -1,0 +1,12 @@
+CP3 rerun: metric comparison
+Challenge ID: day13-k4-l3b-monitoring-llmops-v1
+Challenge latency threshold: <= 2000 ms
+
+| Run | UTC time window | Requests | P50 latency | P95 latency | Min–max latency | TTFT | Retrieval success |
+|---|---|---:|---:|---:|---:|---:|---:|
+| Baseline (`rag_slow=false`) | 2026-09-30T09:36:52.446694Z–2026-09-30T09:36:53.098087Z | 5 | 152 ms | 154 ms | 151–154 ms | 50–51 ms | 100% (5/5) |
+| Incident (`rag_slow=true`) | 2026-09-30T09:36:56.665505Z–2026-09-30T09:37:07.295406Z | 5 | 2653 ms | 2654 ms | 2652–2654 ms | 50–51 ms | 100% (5/5) |
+
+Observed change: P95 latency increased from 154 ms to 2654 ms (+2500 ms, 17.2×), exceeding the challenge threshold by 654 ms. TTFT and retrieval success did not change materially, so the anomaly is total request latency after first token rather than request failure.
+
+This rerun uses the official challenge workload. It records only aggregate metrics and correlation IDs remain in application logs; raw request messages are intentionally excluded.

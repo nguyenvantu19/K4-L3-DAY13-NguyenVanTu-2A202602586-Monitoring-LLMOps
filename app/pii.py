@@ -4,15 +4,19 @@ import hashlib
 import re
 
 PII_PATTERNS: dict[str, str] = {
+    # Email đơn giản; thay toàn bộ địa chỉ bằng nhãn để giữ ngữ cảnh mà không lộ giá trị.
     "email": r"[\w\.-]+@[\w\.-]+\.\w+",
+    # Số điện thoại VN dạng 0xxxxxxxxx hoặc +84xxxxxxxxx, cho phép dấu cách/dấu chấm/gạch nối.
     "phone_vn": r"(?<!\d)(?:\+84|0)(?:[ .-]?\d){9}(?!\d)",
+    # CCCD Việt Nam có 12 chữ số.
     "cccd": r"\b\d{12}\b",
+    # Số thẻ mẫu gồm 16 chữ số, có thể ngăn nhóm bằng khoảng trắng hoặc dấu gạch.
     "credit_card": r"\b\d{4}[- ]?\d{4}[- ]?\d{4}[- ]?\d{4}\b",
-    # TODO: Add more patterns (e.g., Passport, Vietnamese address keywords)
 }
 
 
 def scrub_text(text: str) -> str:
+    """Thay các mẫu PII đã biết bằng nhãn, giữ phần văn bản không nhạy cảm."""
     safe = text
     for name, pattern in PII_PATTERNS.items():
         safe = re.sub(pattern, f"[REDACTED_{name.upper()}]", safe)

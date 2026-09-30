@@ -1,0 +1,13 @@
+Prompt: day13-chat
+
+1. Promoted candidate v2 to production.
+   Trace: correlation_id=req-c0200076
+   trace_id=d88070f551f39d891330a0dee5e39c72
+   prompt_label=production, prompt_version=2
+
+2. Rolled production back to baseline v1; SDK readback confirmed production=v1.
+   Trace after rollback: correlation_id=req-c0200077
+   trace_id=efad98e37327f730697c84cbb8b7c498
+   prompt_label=production, prompt_version=1
+
+All comparison requests used the same PII-free question. No raw prompt input or API key is stored in this evidence.

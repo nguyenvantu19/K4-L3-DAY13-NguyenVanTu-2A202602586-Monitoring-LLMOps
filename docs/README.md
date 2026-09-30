@@ -4,6 +4,7 @@ Thư mục này gom toàn bộ tài liệu hướng dẫn và quy định của 
 
 ## Tiến trình và quy định
 
+- [cp.md](cp.md): hướng dẫn làm lần lượt CP0–CP4 theo từng bước, dành cho người mới.
 - [SETUP.md](SETUP.md): cài đặt, Langfuse và smoke test.
 - [CHECKPOINTS.md](CHECKPOINTS.md): timeline 9:00–13:00 (240 phút) và tín hiệu hoàn thành.
 - [RUBRIC.md](RUBRIC.md): tiêu chí, điểm và evidence.

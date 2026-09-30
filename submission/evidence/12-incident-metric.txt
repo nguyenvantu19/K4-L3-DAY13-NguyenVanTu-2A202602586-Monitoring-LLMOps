@@ -1,0 +1,14 @@
+CP3 metric evidence
+Challenge ID: day13-k4-l3b-monitoring-llmops-v1
+Incident: rag_slow
+Affected feature: monitoring
+Time window (UTC): 2026-09-30T09:30:39Z to 2026-09-30T09:30:52Z
+
+Challenge threshold: latency <= 2000 ms
+Completed challenge requests: 5 / 5
+Challenge response latency: min=2652 ms, p50=2653 ms, p95=2654 ms, max=2654 ms
+TTFT: 50 ms for every completed challenge request
+Retrieval success: 5 / 5 (100%)
+Error rate: 0 / 5 (0%)
+
+Conclusion: tail latency exceeded the challenge threshold by 654 ms while TTFT, retrieval success, and error rate remained healthy. This localizes the delay to work after the first token rather than an API error.
